@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ .Title }}</title>
+  <link rel="stylesheet" href="/static/tailwind.css">
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900">
+  <div class="container mx-auto p-4">
+    <header class="mb-4">
+      <h1 class="text-3xl font-bold">{{ .Header }}</h1>
+    </header>
+
+    <main>
+      <ul id="todo-list">
+        {{range .Todos}}
+        {{block "todo-list-element" .}}
+        <li>{{.Message}}</li>
+        {{end}}
+        {{end}}
+      </ul>
+
+      <form hx-swap="beforeend" hx-target="#todo-list" hx-post="/add-todo">
+        <label for="message">Message:</label>
+        <input type="text" id="message" name="message" name="message" />
+        <button type="submit">Create</button>
+      </form>
+    </main>
+
+    <footer class="mt-4 text-center text-sm text-gray-500">
+      &copy; 2024 My Go App
+    </footer>
+  </div>
+</body>
+
+</html>
